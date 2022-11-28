@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="621.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="montenegro.c482inventoryproject.modifyPartViewController">
+    <children>
+        <Label layoutX="74.0" layoutY="74.0" text="Modify Part">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font></Label>
+        <RadioButton fx:id="modifyInhouseRadioButton" layoutX="306.0" layoutY="74.0" mnemonicParsing="false" onAction="#onModifyInhouseToggle" selected="true" text="In-House">
+         <toggleGroup>
+            <ToggleGroup fx:id="modifyPartToggleGroup" />
+         </toggleGroup></RadioButton>
+        <RadioButton fx:id="modifyOutsourcedRadioButton" layoutX="420.0" layoutY="73.0" mnemonicParsing="false" onAction="#onModifyOutsourcedToggle" text="Outsourced" toggleGroup="$modifyPartToggleGroup" />
+        <TextField disable="true" layoutX="180.0" layoutY="171.0" promptText="Auto Gen- Disabled">
+            <font>
+                <Font name="System Italic" size="13.0" />
+            </font></TextField>
+        <TextField layoutX="180.0" layoutY="211.0" />
+        <TextField layoutX="180.0" layoutY="251.0" />
+        <TextField layoutX="180.0" layoutY="291.0" />
+        <TextField layoutX="180.0" layoutY="331.0" />
+        <Label layoutX="100.0" layoutY="175.0" prefHeight="16.0" prefWidth="50.0" text="ID" />
+        <Label layoutX="100.0" layoutY="215.0" text="Name" />
+        <Label layoutX="100.0" layoutY="255.0" text="Inv" />
+        <Label layoutX="100.0" layoutY="295.0" text="Price/Cost" />
+        <Label layoutX="100.0" layoutY="335.0" text="Max" />
+        <Label layoutX="382.0" layoutY="335.0" text="Min" />
+        <Label fx:id="modifyPartToggleLabel" layoutX="100.0" layoutY="375.0" text="Machine ID" />
+        <Button layoutX="322.0" layoutY="471.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="404.0" layoutY="471.0" mnemonicParsing="false" onAction="#toMainScreen" text="Cancel" />
+        <TextField layoutX="435.0" layoutY="331.0" />
+        <TextField layoutX="210.0" layoutY="371.0" />
+    </children>
+</AnchorPane>

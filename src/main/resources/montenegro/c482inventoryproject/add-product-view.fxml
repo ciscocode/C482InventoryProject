@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="684.0" prefWidth="1122.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="montenegro.c482inventoryproject.addProductViewController">
+    <children>
+        <Pane layoutX="74.0" layoutY="21.0" prefHeight="649.0" prefWidth="1019.0" style="-fx-border-color: black; -fx-border-radius: 25px;" />
+        <Label layoutX="139.0" layoutY="74.0" text="Add Product">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField layoutX="808.0" layoutY="42.0" prefHeight="24.0" prefWidth="234.0" promptText="Search by Part ID or Name" />
+        <TextField layoutX="185.0" layoutY="150.0" promptText="Auto Gen - Disabled" />
+        <TextField layoutX="185.0" layoutY="200.0" />
+        <TextField layoutX="185.0" layoutY="250.0" prefHeight="24.0" prefWidth="116.0" />
+        <TextField layoutX="185.0" layoutY="300.0" prefHeight="24.0" prefWidth="116.0" />
+        <TextField layoutX="185.0" layoutY="350.0" prefHeight="24.0" prefWidth="116.0" />
+        <TextField layoutX="375.0" layoutY="350.0" prefHeight="24.0" prefWidth="116.0" />
+        <Label layoutX="135.0" layoutY="155.0" text="ID" />
+        <Label layoutX="135.0" layoutY="205.0" text="Name" />
+        <Label layoutX="135.0" layoutY="255.0" text="Inv" />
+        <Label layoutX="135.0" layoutY="305.0" text="Price" />
+        <Label layoutX="135.0" layoutY="355.0" text="Max" />
+        <Label layoutX="332.0" layoutY="355.0" text="Min" />
+        <Button layoutX="869.0" layoutY="583.0" mnemonicParsing="false" text="Remove Associated Part" />
+        <Button layoutX="869.0" layoutY="623.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="983.0" layoutY="623.0" mnemonicParsing="false" onAction="#toMainScreen" text="Cancel" />
+        <Button layoutX="957.0" layoutY="306.0" mnemonicParsing="false" text="Add" />
+        <TableView layoutX="584.0" layoutY="89.0" prefHeight="200.0" prefWidth="475.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Part ID" />
+                <TableColumn prefWidth="97.0" text="Part Name" />
+                <TableColumn prefWidth="140.0" text="Inventory Level" />
+                <TableColumn prefWidth="162.0" text="Price/ Cost per Unit" />
+            </columns>
+        </TableView>
+        <TableView layoutX="584.0" layoutY="355.0" prefHeight="200.0" prefWidth="475.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Part ID" />
+                <TableColumn prefWidth="97.0" text="Part Name" />
+                <TableColumn prefWidth="140.0" text="Inventory Level" />
+                <TableColumn prefWidth="162.0" text="Price/ Cost per Unit" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
