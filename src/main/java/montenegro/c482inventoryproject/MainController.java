@@ -29,34 +29,30 @@ public class MainController implements Initializable {
     public TableColumn partStockCol;
     public TableColumn partPriceCol;
 
-
-    public static ObservableList<Part> partList = FXCollections.observableArrayList();
-//    public RadioButton addInhouseRadioButton;
-//    public RadioButton addOutsourcedRadioButton;
-//    public Label addPartToggleLabel;
-//    public RadioButton modifyInhouseRadioButton;
-//    public RadioButton modifyOutsourcedRadioButton;
-//    public Label modifyPartToggleLabel;
-
+    //public static ObservableList<Part> partList = FXCollections.observableArrayList();
+    public TableView<Product> theProductTable;
+    public TableColumn productIdCol;
+    public TableColumn productNameCol;
+    public TableColumn productStockCol;
+    public TableColumn productPriceCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("I am initialized");
-
-
-        InHouse motor = new InHouse(23,"hemi",2799,7,1,10,327);
-        Inventory.addPart(motor);
-        Outsourced turbo = new Outsourced(32, "turbo", 799, 25, 0, 50, "Autozone");
-        Inventory.addPart(turbo);
-
-        thePartTable.setItems(Inventory.getAllParts());
 
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
+        thePartTable.setItems(Inventory.getAllParts());
 
+        productIdCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        productStockCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
+
+        theProductTable.setItems(Inventory.getAllProducts());
     }
 
     //this loads the add part view

@@ -11,7 +11,7 @@ public class Inventory {
         allParts.add(newPart);
     }
     public static void addProduct(Product newProduct) {
-
+        allProducts.add(newProduct);
     }
 
     /* public static Part lookupPart(int partId) {
@@ -45,5 +45,19 @@ public class Inventory {
         return allProducts;
     }
 
+    static {
+        addTestData();
+    }
 
+    public static void addTestData() {
+        InHouse motor = new InHouse(23,"hemi",2799,7,1,10,327);
+        Inventory.addPart(motor);
+        Outsourced turbo = new Outsourced(32, "turbo", 799, 25, 0, 50, "Autozone");
+        Inventory.addPart(turbo);
+
+        Product corvette = new Product(01, "Corvette", 65000, 547, 2, 600);
+        Inventory.addProduct(corvette);
+        Product tesla = new Product(02, "Tesla", 70000, 134, 2, 150);
+        Inventory.addProduct(tesla);
+    }
 }
