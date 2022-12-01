@@ -1,5 +1,6 @@
 package montenegro.c482inventoryproject;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +35,13 @@ public class MainController implements Initializable {
     public TableColumn productPriceCol;
     public TextField productTextField;
     public TextField partTextField;
+    public Button addPartButton;
+    public Button modifyPartButton;
+    public Button deletePartButton;
+    public Button addProductButton;
+    public Button modifyProductButton;
+    public Button deleteProductButton;
+    public Button exitButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,7 +62,11 @@ public class MainController implements Initializable {
         theProductTable.setItems(Inventory.getAllProducts());
     }
 
+    public static void deleteSelection() {
+
+    }
     //part search function
+    //could be improved with live update while I search
     public void partSearchEventHandler(ActionEvent actionEvent) {
         String query = partTextField.getText();
 
@@ -162,5 +174,10 @@ public class MainController implements Initializable {
         stage.setTitle("Modify Product");
         stage.setScene(scene);
         stage.show();
+    }
+
+    //this closes out the program
+    public void exitProgram(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

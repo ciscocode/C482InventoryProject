@@ -17,9 +17,9 @@
                     <font>
                         <Font size="14.0" />
                     </font></Label>
-                <Button layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
-                <Button layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
-                <Button layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="addPartButton" layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
+                <Button fx:id="modifyPartButton" layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
+                <Button fx:id="deletePartButton" layoutX="500.0" layoutY="275.0" mnemonicParsing="false" onAction="#exitProgram" text="Delete" />
                 <TextField fx:id="partTextField" layoutX="355.0" layoutY="32.0" onAction="#partSearchEventHandler" prefHeight="24.0" prefWidth="204.0" promptText="Search by Part ID or Name">
                     <opaqueInsets>
                         <Insets />
@@ -33,7 +33,7 @@
                     </columns>
                 </TableView>
             </children></Pane>
-        <Button layoutX="1154.0" layoutY="450.0" mnemonicParsing="false" text="Exit" />
+        <Button fx:id="exitButton" layoutX="1154.0" layoutY="450.0" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
         <Pane layoutX="675.0" layoutY="110.0" prefHeight="318.0" prefWidth="575.0" style="-fx-border-color: black; -fx-border-radius: 25px;">
             <children>
                 <Label layoutX="53.0" layoutY="32.0" prefHeight="24.0" prefWidth="88.0" style="-fx-font-weight: bold;" text="Products">
@@ -41,9 +41,9 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Button layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
-                <Button layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
-                <Button layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="addProductButton" layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
+                <Button fx:id="modifyProductButton" layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
+                <Button fx:id="deleteProductButton" layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
                 <TextField fx:id="productTextField" layoutX="355.0" layoutY="32.0" prefHeight="24.0" prefWidth="204.0" promptText="Search by Product ID or Name">
                     <opaqueInsets>
                         <Insets />
