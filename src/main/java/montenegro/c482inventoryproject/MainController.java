@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -35,6 +32,8 @@ public class MainController implements Initializable {
     public TableColumn productNameCol;
     public TableColumn productStockCol;
     public TableColumn productPriceCol;
+    public TextField productTextField;
+    public TextField partTextField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,6 +52,76 @@ public class MainController implements Initializable {
         productPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
         theProductTable.setItems(Inventory.getAllProducts());
+    }
+
+    //part search function
+    public void partSearchEventHandler(ActionEvent actionEvent) {
+        String query = partTextField.getText();
+
+        //search by name first
+        ObservableList<Part> parts = searchByPartName(query);
+
+        //if no name matches are found then check if the string contains an id which matches
+            if (parts.size() == 0) {
+                if(query.matches("\\d*") == false){
+                    displayNoMatchError();
+                    return;
+                }
+                int id = Integer.parseInt(query);
+                Part part = searchByPartID(id);
+                if (part != null) {
+                    parts.add(part);
+                }
+            }
+        //if the query still results in no matches, then return the error message
+        if (parts.size() == 0) {
+            displayNoMatchError();
+        }
+
+        //update the parts table by passing in the new list returned in the search
+        thePartTable.setItems(parts);
+    }
+
+    //This function will be used to display an error messsage when a user enters a search term which does not find a match
+    public static void displayNoMatchError() {
+        Alert errorMessage = new Alert(Alert.AlertType.ERROR);
+        errorMessage.setTitle("Error");
+        errorMessage.setContentText("No matches were found!");
+        errorMessage.showAndWait();
+    }
+    private ObservableList<Part> searchByPartName (String partialName) {
+        //declare empty array
+        ObservableList<Part> namedParts = FXCollections.observableArrayList();
+
+        //gather all parts in inventory
+        ObservableList<Part> allParts = Inventory.getAllParts();
+
+        //this will loop through the inventory and add matches into our namedParts array
+        for (Part part: allParts) {
+            if (part.getName().contains(partialName)) {
+                namedParts.add(part);
+            }
+        }
+        //return the namedParts array
+        return namedParts;
+    }
+
+    private Part searchByPartID (int id) {
+        ObservableList<Part> allParts = Inventory.getAllParts();
+
+//        for (int i=0; i<allParts.size(); i++) {
+//            Part part = allParts.get(i);
+//            if (part.getId() == id) {
+//                return part;
+//            }
+//        }
+
+        for (Part part: allParts) {
+            if (part.getId() == id ) {
+                return part;
+            }
+        }
+        return null;
     }
 
     //this loads the add part view
@@ -94,30 +163,4 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-    //this will bring users back to the main view. This will be used when a user clicks "cancel" when using one of the add/modify part or product features
-//    public void toMainScreen(ActionEvent actionEvent) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
-//        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-//        Scene scene = new Scene((Parent) root, 1303, 494);
-//        stage.setTitle("Inventory Management System");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
-//    public void onAddInhouseToggle(ActionEvent actionEvent) {
-//        addPartToggleLabel.setText("Machine ID");
-//    }
-//
-//    public void onAddOutsourcedToggle(ActionEvent actionEvent) {
-//        addPartToggleLabel.setText("Company Name");
-//    }
-
-//    public void onModifyInhouseToggle(ActionEvent actionEvent) {
-//        modifyPartToggleLabel.setText("Machine ID");
-//    }
-//
-//    public void onModifyOutsourcedToggle(ActionEvent actionEvent) {
-//        modifyPartToggleLabel.setText("Company Name");
-//    }
 }

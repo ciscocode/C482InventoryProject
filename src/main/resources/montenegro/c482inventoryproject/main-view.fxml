@@ -20,7 +20,7 @@
                 <Button layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
                 <Button layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
                 <Button layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
-                <TextField layoutX="355.0" layoutY="32.0" prefHeight="24.0" prefWidth="204.0" promptText="Search by Part ID or Name">
+                <TextField fx:id="partTextField" layoutX="355.0" layoutY="32.0" onAction="#partSearchEventHandler" prefHeight="24.0" prefWidth="204.0" promptText="Search by Part ID or Name">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets></TextField>
@@ -44,7 +44,7 @@
                 <Button layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
                 <Button layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
                 <Button layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
-                <TextField layoutX="355.0" layoutY="32.0" prefHeight="24.0" prefWidth="204.0" promptText="Search by Product ID or Name">
+                <TextField fx:id="productTextField" layoutX="355.0" layoutY="32.0" prefHeight="24.0" prefWidth="204.0" promptText="Search by Product ID or Name">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
