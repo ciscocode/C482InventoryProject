@@ -27,53 +27,123 @@ public class addPartViewController {
     public TextField machineIdTextField;
     public Button saveButton;
 
-
-    //String query = partTextField.getText();
-    //Integer.parseInt(query)
-
-//    String name = nameTextField.getText();
-//    int inv = Integer.parseInt(invTextField.getText());
-//    double price = Integer.parseInt(priceTextField.getText());
-//    int max = Integer.parseInt(maxTextField.getText());
-//    int min = Integer.parseInt(minTextField.getText());
-//    int machineId = Integer.parseInt(machineIdTextField.getText());
-
-  int id;
+    int id;
     String name;
     int inv;
     double price;
     int max;
     int min;
     int machineId;
+    String companyName;
     Random randomId = new Random();
+    boolean successfulAddition = false;
 
+    public void insertInHousePart() {
+        id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
 
-    //Inventory.addPart()
-   //This will take the data from the text fields and use it to insert a part into the inventory
-    public void insertPart(int id, String name, double price, int inv, int min, int max, int machineId) {
-        InHouse part = new InHouse(id,name,price,inv,min,max,machineId);
-        part.setId(randomId.nextInt(99)); //just for this test. must edit later so that id is randomized or incremented
+        //turn all inputs into strings
+        name = nameTextField.getText();
+        String priceString = priceTextField.getText();
+        String invString = invTextField.getText();
+        String minString = minTextField.getText();
+        String maxString = maxTextField.getText();
+        String machineIdString = machineIdTextField.getText();
 
-        part.setName(nameTextField.getText());
-        part.setPrice(Integer.parseInt(priceTextField.getText()));
-        part.setStock(Integer.parseInt(invTextField.getText()));
-        part.setMin(Integer.parseInt(minTextField.getText()));
-        part.setMax(Integer.parseInt(maxTextField.getText()));
-        part.setMachineId(Integer.parseInt(machineIdTextField.getText()));
+        //check for invalid data
+        if (name.isBlank()) {
+            System.out.println("Name is blank");
+            return;
+        }
 
-//        part.setName("cat");
-//        part.setPrice(4);
-//        part.setStock(5);
-//        part.setMin(7);
-//        part.setMax(9);
-//        part.setMachineId(9);
+        String error = "";
+        try {
+            error = "Price";
+            price = Double.parseDouble(priceString);
+            error = "Stock";
+            inv = Integer.parseInt(invString);
+            error = "Min";
+            min = Integer.parseInt(minString);
+            error = "Max";
+            max = Integer.parseInt(maxString);
+            error = "Machine ID";
+            machineId = Integer.parseInt(machineIdString);
 
-        Inventory.addPart(part);
+            //check to see if min & max values are valid
+            if (min > inv) {
+                System.out.println("Min is higher than available stock!");
+                return;
+            }
 
-        System.out.println("saving part");
+            if (inv > max) {
+                System.out.println("Stock must be less than or equal to max!");
+                return;
+            }
+
+            InHouse part = new InHouse(id,name,price,inv,min,max,machineId);
+            Inventory.addPart(part);
+            successfulAddition = true;
+            System.out.println("inserting inhouse part");
+        }
+        catch (NumberFormatException e) {
+            System.out.println(error + " value must be a number!");
+            return;
+        }
     }
 
+    public void insertOutsourcedPart() {
+        id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
 
+        //turn all inputs into strings
+        name = nameTextField.getText();
+        String priceString = priceTextField.getText();
+        String invString = invTextField.getText();
+        String minString = minTextField.getText();
+        String maxString = maxTextField.getText();
+        companyName = machineIdTextField.getText();
+
+        //check for invalid data
+        if (name.isBlank()) {
+            System.out.println("Name is blank");
+            return;
+        }
+
+        if (companyName.isBlank()) {
+            System.out.println("Company Name is blank");
+            return;
+        }
+
+        String error = "";
+        try {
+            error = "Price";
+            price = Double.parseDouble(priceString);
+            error = "Stock";
+            inv = Integer.parseInt(invString);
+            error = "Min";
+            min = Integer.parseInt(minString);
+            error = "Max";
+            max = Integer.parseInt(maxString);
+
+            //check to see if min & max values are valid
+            if (min > inv) {
+                System.out.println("Min is higher than available stock!");
+                return;
+            }
+
+            if (inv > max) {
+                System.out.println("Stock must be less than or equal to max!");
+                return;
+            }
+
+            Outsourced part = new Outsourced(id,name,price,inv,min,max,companyName);
+            Inventory.addPart(part);
+            successfulAddition = true;
+            System.out.println("inserting outsourced part");
+        }
+        catch (NumberFormatException e) {
+            System.out.println(error + " value must be a number!");
+            return;
+        }
+    }
 
     public void onAddInhouseToggle(ActionEvent actionEvent) {
         addPartToggleLabel.setText("Machine ID");
@@ -94,15 +164,28 @@ public class addPartViewController {
 
     //saves part and then returns to main screen
     public void savePart(ActionEvent actionEvent) throws IOException {
-        insertPart(id, name, price, inv, min, max, machineId);
+        System.out.println("saving part");
+
+        if (addInhouseRadioButton.isSelected()) {
+            System.out.println("lol this is inhouse");
+            insertInHousePart();
+            if (successfulAddition == false) {
+                return;
+            }
+        }
+
+        if (addOutsourcedRadioButton.isSelected()) {
+            System.out.println("hehe this is outsourced");
+            insertOutsourcedPart();
+            if (successfulAddition == false) {
+                return;
+            }
+        }
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene((Parent) root, 1303, 494);
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
         stage.show();
-        //InHouse motor = new InHouse(23,"hemi",2799,7,1,10,327);
-        //Inventory.addPart(motor);
-        //sample with inhouse option selected. Must modify this later so I can select either option
     }
 }
