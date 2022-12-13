@@ -148,13 +148,23 @@ public class MainController implements Initializable {
 
     //this loads the modify part view with the default in house option selected
     public void modifyPart(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("modify-part-view.fxml"));
+        FXMLLoader modifyPartLoader = new FXMLLoader();
+        modifyPartLoader.setLocation(getClass().getResource("modify-part-view.fxml"));
+        modifyPartLoader.load();
+
+        modifyPartViewController modifyController = modifyPartLoader.getController();
+        //modifyController.sendInhousePart((InHouse) thePartTable.getSelectionModel().getSelectedItem()); //must find a fix for outsourced
+        modifyController.sendData(thePartTable.getSelectionModel().getSelectedItem());
+        //Parent root = FXMLLoader.load(getClass().getResource("modify-part-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene((Parent) root, 640, 620);
+        Parent scene = modifyPartLoader.getRoot();
+        //Scene scene = new Scene((Parent) root, 640, 620);
         stage.setTitle("Modify Part");
-        stage.setScene(scene);
+        stage.setScene(new Scene(scene));
         stage.show();
     }
+
+
 
     //This loads the view of the add product form
     public void addProduct(ActionEvent actionEvent) throws IOException {

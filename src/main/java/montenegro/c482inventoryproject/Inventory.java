@@ -14,10 +14,17 @@ public class Inventory {
         allProducts.add(newProduct);
     }
 
-    /* public static Part lookupPart(int partId) {
+     public static Part lookupPart(int partId) {
+         ObservableList<Part> allParts = Inventory.getAllParts();
 
+         for (Part part: allParts) {
+             if (part.getId() == partId ) {
+                 return part;
+             }
+         }
+         return null;
     }
-    public static Product lookupProduct(int productId) {
+    /*public static Product lookupProduct(int productId) {
 
     }
     public static ObservableList<Part> lookupPart(String partName) {

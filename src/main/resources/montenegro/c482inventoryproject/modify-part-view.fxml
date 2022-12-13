@@ -15,14 +15,14 @@
             <ToggleGroup fx:id="modifyPartToggleGroup" />
          </toggleGroup></RadioButton>
         <RadioButton fx:id="modifyOutsourcedRadioButton" layoutX="420.0" layoutY="73.0" mnemonicParsing="false" onAction="#onModifyOutsourcedToggle" text="Outsourced" toggleGroup="$modifyPartToggleGroup" />
-        <TextField disable="true" layoutX="180.0" layoutY="171.0" promptText="Auto Gen- Disabled">
+        <TextField fx:id="idTextField" disable="true" layoutX="180.0" layoutY="171.0">
             <font>
                 <Font name="System Italic" size="13.0" />
             </font></TextField>
-        <TextField layoutX="180.0" layoutY="211.0" />
-        <TextField layoutX="180.0" layoutY="251.0" />
-        <TextField layoutX="180.0" layoutY="291.0" />
-        <TextField layoutX="180.0" layoutY="331.0" />
+        <TextField fx:id="nameTextField" layoutX="180.0" layoutY="211.0" />
+        <TextField fx:id="invTextField" layoutX="180.0" layoutY="251.0" />
+        <TextField fx:id="priceTextField" layoutX="180.0" layoutY="291.0" />
+        <TextField fx:id="maxTextField" layoutX="180.0" layoutY="331.0" />
         <Label layoutX="100.0" layoutY="175.0" prefHeight="16.0" prefWidth="50.0" text="ID" />
         <Label layoutX="100.0" layoutY="215.0" text="Name" />
         <Label layoutX="100.0" layoutY="255.0" text="Inv" />
@@ -30,9 +30,9 @@
         <Label layoutX="100.0" layoutY="335.0" text="Max" />
         <Label layoutX="382.0" layoutY="335.0" text="Min" />
         <Label fx:id="modifyPartToggleLabel" layoutX="100.0" layoutY="375.0" text="Machine ID" />
-        <Button layoutX="322.0" layoutY="471.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="322.0" layoutY="471.0" mnemonicParsing="false" onAction="#savePart" text="Save" />
         <Button layoutX="404.0" layoutY="471.0" mnemonicParsing="false" onAction="#toMainScreen" text="Cancel" />
-        <TextField layoutX="435.0" layoutY="331.0" />
-        <TextField layoutX="210.0" layoutY="371.0" />
+        <TextField fx:id="minTextField" layoutX="435.0" layoutY="331.0" />
+        <TextField fx:id="machineIdTextField" layoutX="210.0" layoutY="371.0" />
     </children>
 </AnchorPane>
