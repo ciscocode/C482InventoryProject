@@ -24,9 +24,17 @@ public class Inventory {
          }
          return null;
     }
-    /*public static Product lookupProduct(int productId) {
+    public static Product lookupProduct(int productId) {
+        ObservableList<Product> allProducts = Inventory.getAllProducts();
 
-    }*/
+        for (Product product: allProducts) {
+            if (product.getId() == productId ) {
+                return product;
+            }
+        }
+        return null;
+    }
+    //note: search functions are not yet case sensitive
     public static ObservableList<Part> lookupPart(String partName) {
      //declare empty array
         ObservableList<Part> namedParts = FXCollections.observableArrayList();
@@ -43,9 +51,22 @@ public class Inventory {
         //return the namedParts array
         return namedParts;
     }
-    /*public static ObservableList<Product> lookupProduct(String productName) {
+    public static ObservableList<Product> lookupProduct(String productName) {
+        //declare empty array
+        ObservableList<Product> namedProducts = FXCollections.observableArrayList();
 
-    } */
+        //gather all products in inventory
+        ObservableList<Product> allProducts = Inventory.getAllProducts();
+
+        //this will loop through the inventory and add matches into our namedProducts array
+        for (Product product: allProducts) {
+            if (product.getName().contains(productName)) {
+                namedProducts.add(product);
+            }
+        }
+        //return the namedProducts array
+        return namedProducts;
+    }
     public static void updatePart(int index, Part selectedPart) {
 
     }

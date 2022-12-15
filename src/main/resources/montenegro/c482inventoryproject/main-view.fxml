@@ -44,7 +44,7 @@
                 <Button fx:id="addProductButton" layoutX="362.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
                 <Button fx:id="modifyProductButton" layoutX="426.0" layoutY="275.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
                 <Button fx:id="deleteProductButton" layoutX="500.0" layoutY="275.0" mnemonicParsing="false" text="Delete" />
-                <TextField fx:id="productTextField" layoutX="355.0" layoutY="32.0" prefHeight="24.0" prefWidth="204.0" promptText="Search by Product ID or Name">
+                <TextField fx:id="productTextField" layoutX="355.0" layoutY="32.0" onAction="#productSearchEventHandler" prefHeight="24.0" prefWidth="204.0" promptText="Search by Product ID or Name">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>

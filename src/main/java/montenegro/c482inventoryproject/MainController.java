@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static montenegro.c482inventoryproject.Inventory.lookupPart;
+import static montenegro.c482inventoryproject.Inventory.lookupProduct;
 
 public class MainController implements Initializable {
     //remember to add buttons also
@@ -96,6 +97,33 @@ public class MainController implements Initializable {
         thePartTable.setItems(parts);
     }
 
+    public void productSearchEventHandler(ActionEvent actionEvent) {
+        String query = productTextField.getText();
+
+        //search by name first
+        ObservableList<Product> products = lookupProduct(query);
+
+        //if no name matches are found then check if the string contains an id which matches
+        if (products.size() == 0) {
+            if(query.matches("\\d*") == false){
+                displayNoMatchError();
+                return;
+            }
+            int id = Integer.parseInt(query);
+            Product product = lookupProduct(id);
+            if (product != null) {
+                products.add(product);
+            }
+        }
+        //if the query still results in no matches, then return the error message
+        if (products.size() == 0) {
+            displayNoMatchError();
+        }
+
+        //update the product table by passing in the new list returned in the search
+        theProductTable.setItems(products);
+    }
+
     //This function will be used to display an error messsage when a user enters a search term which does not find a match
     public static void displayNoMatchError() {
         Alert errorMessage = new Alert(Alert.AlertType.ERROR);
@@ -131,8 +159,6 @@ public class MainController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
-
 
     //This loads the view of the add product form
     public void addProduct(ActionEvent actionEvent) throws IOException {
