@@ -26,11 +26,24 @@ public class Inventory {
     }
     /*public static Product lookupProduct(int productId) {
 
-    }
+    }*/
     public static ObservableList<Part> lookupPart(String partName) {
+     //declare empty array
+        ObservableList<Part> namedParts = FXCollections.observableArrayList();
 
+        //gather all parts in inventory
+        ObservableList<Part> allParts = Inventory.getAllParts();
+
+        //this will loop through the inventory and add matches into our namedParts array
+        for (Part part: allParts) {
+            if (part.getName().contains(partName)) {
+                namedParts.add(part);
+            }
+        }
+        //return the namedParts array
+        return namedParts;
     }
-    public static ObservableList<Product> lookupProduct(String productName) {
+    /*public static ObservableList<Product> lookupProduct(String productName) {
 
     } */
     public static void updatePart(int index, Part selectedPart) {

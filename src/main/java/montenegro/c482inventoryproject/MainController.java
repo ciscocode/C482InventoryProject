@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static montenegro.c482inventoryproject.Inventory.lookupPart;
+
 public class MainController implements Initializable {
     //remember to add buttons also
 
@@ -71,7 +73,7 @@ public class MainController implements Initializable {
         String query = partTextField.getText();
 
         //search by name first
-        ObservableList<Part> parts = searchByPartName(query);
+        ObservableList<Part> parts = lookupPart(query);
 
         //if no name matches are found then check if the string contains an id which matches
             if (parts.size() == 0) {
@@ -80,7 +82,7 @@ public class MainController implements Initializable {
                     return;
                 }
                 int id = Integer.parseInt(query);
-                Part part = searchByPartID(id);
+                Part part = lookupPart(id);
                 if (part != null) {
                     parts.add(part);
                 }
@@ -100,40 +102,6 @@ public class MainController implements Initializable {
         errorMessage.setTitle("Error");
         errorMessage.setContentText("No matches were found!");
         errorMessage.showAndWait();
-    }
-    private ObservableList<Part> searchByPartName (String partialName) {
-        //declare empty array
-        ObservableList<Part> namedParts = FXCollections.observableArrayList();
-
-        //gather all parts in inventory
-        ObservableList<Part> allParts = Inventory.getAllParts();
-
-        //this will loop through the inventory and add matches into our namedParts array
-        for (Part part: allParts) {
-            if (part.getName().contains(partialName)) {
-                namedParts.add(part);
-            }
-        }
-        //return the namedParts array
-        return namedParts;
-    }
-
-    private Part searchByPartID (int id) {
-        ObservableList<Part> allParts = Inventory.getAllParts();
-
-//        for (int i=0; i<allParts.size(); i++) {
-//            Part part = allParts.get(i);
-//            if (part.getId() == id) {
-//                return part;
-//            }
-//        }
-
-        for (Part part: allParts) {
-            if (part.getId() == id ) {
-                return part;
-            }
-        }
-        return null;
     }
 
     //this loads the add part view
