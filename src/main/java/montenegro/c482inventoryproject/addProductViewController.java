@@ -1,5 +1,6 @@
 package montenegro.c482inventoryproject;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,7 @@ public class addProductViewController implements Initializable {
     public TableColumn invCol;
     public TableColumn priceCol;
     public TableView<Part> associatedPartTable;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     public TableColumn associatedIdCol;
     public TableColumn associatedNameCol;
     public TableColumn associatedInvCol;
@@ -44,7 +46,7 @@ public class addProductViewController implements Initializable {
     int max;
     int min;
     Random randomId = new Random();
-
+    boolean successfulAddition = false;
 
     public void insertProduct() {
         id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
@@ -86,7 +88,7 @@ public class addProductViewController implements Initializable {
 
             Product product = new Product(id,name,price,inv,min,max);
             Inventory.addProduct(product);
-            //successfulAddition = true;
+            successfulAddition = true;
             System.out.println("inserting product");
         }
         catch (NumberFormatException e) {
@@ -137,28 +139,16 @@ public class addProductViewController implements Initializable {
         associatedInvCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
         associatedPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
-        //associatedPartTable.setItems(Inventory.getAllProducts());
+        associatedPartTable.setItems(associatedParts);
     }
 
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("saving product");
         insertProduct();
+        if (successfulAddition == false) {
+               return;
+        }
 
-//        if (addInhouseRadioButton.isSelected()) {
-//            System.out.println("lol this is inhouse");
-//            insertInHousePart();
-//            if (successfulAddition == false) {
-//                return;
-//            }
-//        }
-//
-//        if (addOutsourcedRadioButton.isSelected()) {
-//            System.out.println("hehe this is outsourced");
-//            insertOutsourcedPart();
-//            if (successfulAddition == false) {
-//                return;
-//            }
-//        }
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene((Parent) root, 1303, 494);
@@ -175,5 +165,11 @@ public class addProductViewController implements Initializable {
         stage.setTitle("Inventory Management System");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onAddAssociatedPart(ActionEvent actionEvent) {
+        Part part = partTable.getSelectionModel().getSelectedItem();
+        associatedParts.add(part);
+        associatedPartTable.setItems(associatedParts);
     }
 }

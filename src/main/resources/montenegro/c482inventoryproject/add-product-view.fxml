@@ -28,7 +28,7 @@
         <Button layoutX="869.0" layoutY="583.0" mnemonicParsing="false" text="Remove Associated Part" />
         <Button layoutX="869.0" layoutY="623.0" mnemonicParsing="false" onAction="#onSaveProduct" text="Save" />
         <Button layoutX="983.0" layoutY="623.0" mnemonicParsing="false" onAction="#toMainScreen" text="Cancel" />
-        <Button layoutX="957.0" layoutY="306.0" mnemonicParsing="false" text="Add" />
+        <Button layoutX="957.0" layoutY="306.0" mnemonicParsing="false" onAction="#onAddAssociatedPart" text="Add" />
         <TableView fx:id="partTable" layoutX="584.0" layoutY="89.0" prefHeight="200.0" prefWidth="475.0">
             <columns>
                 <TableColumn fx:id="idCol" prefWidth="75.0" text="Part ID" />
