@@ -85,8 +85,15 @@ public class addProductViewController implements Initializable {
                 System.out.println("Stock must be less than or equal to max!");
                 return;
             }
-
+            //once I gather my parameters I can create the product
             Product product = new Product(id,name,price,inv,min,max);
+
+            //then I must add any associated parts. I must loop because there may be multiple associated parts
+            for (Part part: associatedParts) {
+                product.addAssociatedPart(part);
+            }
+
+            //Then I can add the finished product to the inventory
             Inventory.addProduct(product);
             successfulAddition = true;
             System.out.println("inserting product");
@@ -144,6 +151,7 @@ public class addProductViewController implements Initializable {
 
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("saving product");
+        //insert product into inventory
         insertProduct();
         if (successfulAddition == false) {
                return;
@@ -172,7 +180,6 @@ public class addProductViewController implements Initializable {
         associatedParts.add(part);
         associatedPartTable.setItems(associatedParts);
     }
-
 
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
         Part part = partTable.getSelectionModel().getSelectedItem();
