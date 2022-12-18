@@ -172,11 +172,20 @@ public class MainController implements Initializable {
 
     //This loads the view of the modify product form
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("modify-product-view.fxml"));
+        FXMLLoader modifyProductLoader = new FXMLLoader();
+        modifyProductLoader.setLocation(getClass().getResource("modify-product-view.fxml"));
+        modifyProductLoader.load();
+
+        modifyProductViewController modifyController = modifyProductLoader.getController();
+        modifyController.sendData(theProductTable.getSelectionModel().getSelectedItem());
+
+        //Parent root = FXMLLoader.load(getClass().getResource("modify-product-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene((Parent) root, 1150, 700);
+        Parent scene = modifyProductLoader.getRoot();
+
+        //Scene scene = new Scene((Parent) root, 1150, 700);
         stage.setTitle("Modify Product");
-        stage.setScene(scene);
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
