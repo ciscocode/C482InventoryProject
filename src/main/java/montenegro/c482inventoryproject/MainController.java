@@ -184,4 +184,14 @@ public class MainController implements Initializable {
     public void exitProgram(ActionEvent actionEvent) {
         Platform.exit();
     }
+
+    public void onDeletePart(ActionEvent actionEvent) {
+        Part part = thePartTable.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(part);
+    }
+
+    public void onDeleteProduct(ActionEvent actionEvent) {
+        Product product = theProductTable.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(product);
+    }
 }

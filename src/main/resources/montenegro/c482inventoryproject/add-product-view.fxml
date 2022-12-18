@@ -25,7 +25,7 @@
         <Label layoutX="135.0" layoutY="305.0" text="Price" />
         <Label layoutX="135.0" layoutY="355.0" text="Max" />
         <Label layoutX="332.0" layoutY="355.0" text="Min" />
-        <Button layoutX="869.0" layoutY="583.0" mnemonicParsing="false" text="Remove Associated Part" />
+        <Button layoutX="869.0" layoutY="583.0" mnemonicParsing="false" onAction="#onRemoveAssociatedPart" text="Remove Associated Part" />
         <Button layoutX="869.0" layoutY="623.0" mnemonicParsing="false" onAction="#onSaveProduct" text="Save" />
         <Button layoutX="983.0" layoutY="623.0" mnemonicParsing="false" onAction="#toMainScreen" text="Cancel" />
         <Button layoutX="957.0" layoutY="306.0" mnemonicParsing="false" onAction="#onAddAssociatedPart" text="Add" />

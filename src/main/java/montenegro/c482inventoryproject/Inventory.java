@@ -73,12 +73,23 @@ public class Inventory {
     public static void updatedProduct(int index, Product newProduct) {
 
     }
-    /*public static boolean deletePart(Part selectedPart) {
-
+    public static boolean deletePart(Part selectedPart) {
+        if(allParts.contains(selectedPart)) {
+            allParts.remove(selectedPart);
+            return true;
+        } else {
+            return false;
+        }
     }
-    public static boolean deleteProduct(Product selectedProduct) {
 
-    } */
+    public static boolean deleteProduct(Product selectedProduct) {
+        if(allProducts.contains(selectedProduct)) {
+            allProducts.remove(selectedProduct);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public static ObservableList<Part> getAllParts() {
         return allParts;
     }

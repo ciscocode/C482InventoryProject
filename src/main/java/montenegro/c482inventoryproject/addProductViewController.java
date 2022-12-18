@@ -172,4 +172,11 @@ public class addProductViewController implements Initializable {
         associatedParts.add(part);
         associatedPartTable.setItems(associatedParts);
     }
+
+
+    public void onRemoveAssociatedPart(ActionEvent actionEvent) {
+        Part part = partTable.getSelectionModel().getSelectedItem();
+        associatedParts.remove(part);
+        associatedPartTable.setItems(associatedParts);
+    }
 }
