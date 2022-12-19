@@ -198,7 +198,11 @@ public class MainController implements Initializable {
 
     //this closes out the program
     public void exitProgram(ActionEvent actionEvent) {
-        Platform.exit();
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
 
     public void onDeletePart(ActionEvent actionEvent) {

@@ -8,14 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -179,13 +178,13 @@ public class modifyProductViewController implements Initializable {
     }
 
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
-        Part part = associatedPartTable.getSelectionModel().getSelectedItem();
-        System.out.println(associatedPartTable.getSelectionModel().getSelectedItem());
-        System.out.println("remove associated part");
-        System.out.println(part.getName());
-        //lookupProduct().deleteAssociatedPart(part);
-        associatedParts.remove(part);
-        associatedPartTable.setItems(associatedParts);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this associated part?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Part part = associatedPartTable.getSelectionModel().getSelectedItem();
+            associatedParts.remove(part);
+            associatedPartTable.setItems(associatedParts);
+        }
     }
 
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -183,11 +184,12 @@ public class addProductViewController implements Initializable {
     }
 
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
-        Part part = associatedPartTable.getSelectionModel().getSelectedItem();
-        System.out.println(associatedPartTable.getSelectionModel().getSelectedItem());
-        System.out.println("remove associated part");
-        System.out.println(part.getName());
-        associatedParts.remove(part);
-        associatedPartTable.setItems(associatedParts);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this associated part?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Part part = associatedPartTable.getSelectionModel().getSelectedItem();
+            associatedParts.remove(part);
+            associatedPartTable.setItems(associatedParts);
+        }
     }
 }
