@@ -90,7 +90,8 @@ public class addProductViewController implements Initializable {
 
             //then I must add any associated parts. I must loop because there may be multiple associated parts
             for (Part part: associatedParts) {
-                product.addAssociatedPart(part);
+                if (part != associatedParts)
+                    product.addAssociatedPart(part);
             }
 
             //Then I can add the finished product to the inventory
@@ -182,7 +183,10 @@ public class addProductViewController implements Initializable {
     }
 
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
-        Part part = partTable.getSelectionModel().getSelectedItem();
+        Part part = associatedPartTable.getSelectionModel().getSelectedItem();
+        System.out.println(associatedPartTable.getSelectionModel().getSelectedItem());
+        System.out.println("remove associated part");
+        System.out.println(part.getName());
         associatedParts.remove(part);
         associatedPartTable.setItems(associatedParts);
     }

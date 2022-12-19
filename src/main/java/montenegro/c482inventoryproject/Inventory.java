@@ -68,10 +68,10 @@ public class Inventory {
         return namedProducts;
     }
     public static void updatePart(int index, Part selectedPart) {
-
+        allParts.set(index, selectedPart);
     }
     public static void updatedProduct(int index, Product newProduct) {
-
+        allProducts.set(index, newProduct);
     }
     public static boolean deletePart(Part selectedPart) {
         if(allParts.contains(selectedPart)) {
