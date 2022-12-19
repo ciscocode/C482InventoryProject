@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static montenegro.c482inventoryproject.Inventory.lookupPart;
@@ -132,6 +133,13 @@ public class MainController implements Initializable {
         errorMessage.showAndWait();
     }
 
+    public static void displayNoSelectionError() {
+        Alert errorMessage = new Alert(Alert.AlertType.ERROR);
+        errorMessage.setTitle("Error");
+        errorMessage.setContentText("Please make a selection from the table");
+        errorMessage.showAndWait();
+    }
+
     //this loads the add part view
     public void addPart(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("add-part-view.fxml"));
@@ -147,14 +155,14 @@ public class MainController implements Initializable {
         FXMLLoader modifyPartLoader = new FXMLLoader();
         modifyPartLoader.setLocation(getClass().getResource("modify-part-view.fxml"));
         modifyPartLoader.load();
-
         modifyPartViewController modifyController = modifyPartLoader.getController();
-        //modifyController.sendInhousePart((InHouse) thePartTable.getSelectionModel().getSelectedItem()); //must find a fix for outsourced
+        if (thePartTable.getSelectionModel().getSelectedItem() == null) {
+            displayNoSelectionError();
+            return;
+        }
         modifyController.sendData(thePartTable.getSelectionModel().getSelectedItem());
-        //Parent root = FXMLLoader.load(getClass().getResource("modify-part-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent scene = modifyPartLoader.getRoot();
-        //Scene scene = new Scene((Parent) root, 640, 620);
         stage.setTitle("Modify Part");
         stage.setScene(new Scene(scene));
         stage.show();
@@ -175,15 +183,14 @@ public class MainController implements Initializable {
         FXMLLoader modifyProductLoader = new FXMLLoader();
         modifyProductLoader.setLocation(getClass().getResource("modify-product-view.fxml"));
         modifyProductLoader.load();
-
         modifyProductViewController modifyController = modifyProductLoader.getController();
+        if (theProductTable.getSelectionModel().getSelectedItem() == null) {
+            displayNoSelectionError();
+            return;
+        }
         modifyController.sendData(theProductTable.getSelectionModel().getSelectedItem());
-
-        //Parent root = FXMLLoader.load(getClass().getResource("modify-product-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent scene = modifyProductLoader.getRoot();
-
-        //Scene scene = new Scene((Parent) root, 1150, 700);
         stage.setTitle("Modify Product");
         stage.setScene(new Scene(scene));
         stage.show();
@@ -195,12 +202,27 @@ public class MainController implements Initializable {
     }
 
     public void onDeletePart(ActionEvent actionEvent) {
-        Part part = thePartTable.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(part);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Part part = thePartTable.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(part);
+        }
     }
 
     public void onDeleteProduct(ActionEvent actionEvent) {
-        Product product = theProductTable.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(product);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this product?");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Product product = theProductTable.getSelectionModel().getSelectedItem();
+            if (product.getAllAssociatedParts().size() > 0) {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Error");
+                error.setContentText("You can not delete a Product with associated parts!");
+                error.showAndWait();
+                return;
+            }
+            Inventory.deleteProduct(product);
+        }
     }
 }

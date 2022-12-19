@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.util.Random;
 
@@ -51,7 +48,10 @@ public class addPartViewController {
 
         //check for invalid data
         if (name.isBlank()) {
-            System.out.println("Name is blank");
+            Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+            errorMessage.setTitle("Warning");
+            errorMessage.setContentText("The name is blank!");
+            errorMessage.showAndWait();
             return;
         }
 
@@ -70,12 +70,18 @@ public class addPartViewController {
 
             //check to see if min & max values are valid
             if (min > inv) {
-                System.out.println("Min is higher than available stock!");
+                Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+                errorMessage.setTitle("Warning");
+                errorMessage.setContentText("Min is higher than available stock!");
+                errorMessage.showAndWait();
                 return;
             }
 
             if (inv > max) {
-                System.out.println("Stock must be less than or equal to max!");
+                Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+                errorMessage.setTitle("Warning");
+                errorMessage.setContentText("Stock must be less than or equal to max!");
+                errorMessage.showAndWait();
                 return;
             }
 
@@ -85,7 +91,10 @@ public class addPartViewController {
             System.out.println("inserting inhouse part");
         }
         catch (NumberFormatException e) {
-            System.out.println(error + " value must be a number!");
+            Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+            errorMessage.setTitle("Warning");
+            errorMessage.setContentText(error + " value must be a number!");
+            errorMessage.showAndWait();
             return;
         }
     }
