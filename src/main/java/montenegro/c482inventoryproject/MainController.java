@@ -160,7 +160,7 @@ public class MainController implements Initializable {
             displayNoSelectionError();
             return;
         }
-        modifyController.sendData(thePartTable.getSelectionModel().getSelectedItem());
+        modifyController.sendData(thePartTable.getSelectionModel().getSelectedIndex(),thePartTable.getSelectionModel().getSelectedItem());
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent scene = modifyPartLoader.getRoot();
         stage.setTitle("Modify Part");

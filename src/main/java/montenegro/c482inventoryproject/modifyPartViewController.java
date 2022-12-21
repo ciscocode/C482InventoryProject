@@ -49,7 +49,9 @@ public class modifyPartViewController {
         modifyPartToggleLabel.setText("Company Name");
     }
 
-    public void sendData(Part part) {
+    public void sendData(int partIndex, Part part) {
+        index = partIndex;
+
         idTextField.setText(String.valueOf(part.getId()));
         nameTextField.setText(part.getName());
         invTextField.setText(String.valueOf(part.getStock()));
