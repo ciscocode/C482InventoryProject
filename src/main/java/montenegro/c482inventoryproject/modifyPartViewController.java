@@ -1,7 +1,5 @@
 package montenegro.c482inventoryproject;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,10 +12,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Random;
 
-import static montenegro.c482inventoryproject.Inventory.lookupPart;
-
+/** This class modifies an existing part in the inventory.
+ * <br> <br>
+ * <b>RUNTIME ERROR</b> - I was having errors when modifying a part after switching it from InHouse to Outsourced and vice versa.
+ * This occured because I attempted to use the setters to change the properties such as name, stock, min, max, etc.
+ * However, my error occured because I forgot that the Machine ID and Company Name are two different data types.
+ * To solve this I refactored my code so that I would take the inputs within the Modify Part form and create a new part.
+ * I would then take this part and use my UpdatePart method from my Inventory class to replace the old part with my newly created part
+ */
 public class modifyPartViewController {
     public RadioButton modifyInhouseRadioButton;
     public RadioButton modifyOutsourcedRadioButton;
@@ -40,15 +43,23 @@ public class modifyPartViewController {
     boolean successfulAddition = false;
     int index = 0;
 
+    /**This method will set an input label as Machine ID.
+     * @param actionEvent This method is called when the InHouse radio button is toggled
+     */
     public void onModifyInhouseToggle(ActionEvent actionEvent) {
         modifyPartToggleLabel.setText("Machine ID");
     }
-
+    /**This method will set an input label as Company Name.
+     * @param actionEvent This method is called when the Outsourced radio button is toggled
+     */
     public void onModifyOutsourcedToggle(ActionEvent actionEvent) {
         modifyPartToggleLabel.setText("Company Name");
     }
 
-    //sends the selected parts info into the text fields
+    /** This method collects a selected parts data to send into the Modify Part view.
+     * @param partIndex The index of the part within the observable list
+     * @param part The selected part to be modified
+     */
     public void sendData(int partIndex, Part part) {
         index = partIndex;
 
@@ -69,6 +80,7 @@ public class modifyPartViewController {
         }
     }
 
+    /** This method modifies the data for a selected part. */
     public void modifyPart() {
         id = Integer.parseInt(idTextField.getText());
 
@@ -153,6 +165,9 @@ public class modifyPartViewController {
         }
     }
 
+    /**This method will save a part with its new modified traits.
+     * @param actionEvent This method is called when the user clicks save
+     */
     public void savePart(ActionEvent actionEvent) throws IOException {
         System.out.println("modifying part");
         modifyPart();
@@ -168,6 +183,9 @@ public class modifyPartViewController {
         stage.show();
     }
 
+    /**This method will send the user back to the main screen view.
+     * @param actionEvent Method is called when the user clicks the cancel button
+     */
     public void toMainScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

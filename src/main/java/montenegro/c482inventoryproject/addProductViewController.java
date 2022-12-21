@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import static montenegro.c482inventoryproject.Inventory.lookupPart;
 import static montenegro.c482inventoryproject.MainController.displayNoMatchError;
 
+/** This class adds a product to the users inventory.*/
 public class addProductViewController implements Initializable {
     public TextField searchTextField;
     public TextField nameTextField;
@@ -49,8 +50,10 @@ public class addProductViewController implements Initializable {
     Random randomId = new Random();
     boolean successfulAddition = false;
 
+    /**This method will create a product. */
     public void insertProduct() {
-        id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
+        //generate a random ID
+        id = randomId.nextInt(99);
 
         //turn all inputs into strings
         name = nameTextField.getText();
@@ -118,6 +121,9 @@ public class addProductViewController implements Initializable {
         }
     }
     //could be improved with live update while I search
+    /**This method allows us to search the product table for a product.
+     * @param actionEvent Method is called when the user enters text into the search field and presses enter
+     */
     public void searchEventHandler(ActionEvent actionEvent) {
         String query = searchTextField.getText();
 
@@ -145,9 +151,8 @@ public class addProductViewController implements Initializable {
         partTable.setItems(parts);
     }
 
+    /**This initialize method creates table views when entering the Add Product view. */
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("I am initialized");
-
         idCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         invCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
@@ -163,6 +168,9 @@ public class addProductViewController implements Initializable {
         associatedPartTable.setItems(associatedParts);
     }
 
+    /**This method will save the Product
+     * @param actionEvent Method is called when the user clicks the save button
+     */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("saving product");
         //insert product into inventory
@@ -179,7 +187,9 @@ public class addProductViewController implements Initializable {
         stage.show();
     }
 
-
+    /**This method will send the user back to the main screen view.
+     * @param actionEvent Method is called when the user clicks the cancel button
+     */
     public void toMainScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -189,12 +199,18 @@ public class addProductViewController implements Initializable {
         stage.show();
     }
 
+    /**This method will update the Associated Parts table.
+     * @param actionEvent Method is called when the user clicks the add button
+     */
     public void onAddAssociatedPart(ActionEvent actionEvent) {
         Part part = partTable.getSelectionModel().getSelectedItem();
         associatedParts.add(part);
         associatedPartTable.setItems(associatedParts);
     }
 
+    /**This method will remove a part from the Associated Parts table.
+     * @param actionEvent Method is called when the user clicks the Remove Associated Part button
+     */
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this associated part?");
         Optional<ButtonType> result = confirm.showAndWait();

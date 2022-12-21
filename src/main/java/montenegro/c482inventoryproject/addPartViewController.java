@@ -11,7 +11,7 @@ import java.util.Random;
 
 import java.io.IOException;
 
-
+/** This class adds a part to the users inventory.*/
 public class addPartViewController {
     public RadioButton addInhouseRadioButton;
     public RadioButton addOutsourcedRadioButton;
@@ -35,8 +35,10 @@ public class addPartViewController {
     Random randomId = new Random();
     boolean successfulAddition = false;
 
+    /**This method will create an InHouse Part. */
     public void insertInHousePart() {
-        id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
+        //generate a random ID for our part
+        id = randomId.nextInt(99);
 
         //turn all inputs into strings
         name = nameTextField.getText();
@@ -99,8 +101,10 @@ public class addPartViewController {
         }
     }
 
+    /**This method will create an Outsourced Part. */
     public void insertOutsourcedPart() {
-        id = randomId.nextInt(99); //just for this test. must edit later so that id is randomized or incremented
+        //generate a random ID
+        id = randomId.nextInt(99);
 
         //turn all inputs into strings
         name = nameTextField.getText();
@@ -169,14 +173,23 @@ public class addPartViewController {
         }
     }
 
+    /**This method will set an input label as Machine ID.
+     * @param actionEvent This method is called when the InHouse radio button is toggled
+     */
     public void onAddInhouseToggle(ActionEvent actionEvent) {
         addPartToggleLabel.setText("Machine ID");
     }
 
+    /**This method will set an input label as Company ID.
+     * @param actionEvent This method is called when the Outsourced radio button is toggled
+     */
     public void onAddOutsourcedToggle(ActionEvent actionEvent) {
         addPartToggleLabel.setText("Company Name");
     }
 
+    /**This method will send the user back to the main screen view.
+     * @param actionEvent Method is called when the user clicks the cancel button
+     */
     public void toMainScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -186,7 +199,10 @@ public class addPartViewController {
         stage.show();
     }
 
-    //saves part and then returns to main screen
+    /**This method will save the users part.
+     * It will save an InHouse or Outsourced part depending on which radio button is selected
+     * @param actionEvent Method is called when the user clicks on the save button
+     */
     public void savePart(ActionEvent actionEvent) throws IOException {
         System.out.println("saving part");
 

@@ -6,9 +6,10 @@ package montenegro.c482inventoryproject;
 
 /**
  *
- * @author Place Your Name Here
+ * @author Francisco Montenegro
  */
-//originally abstract. CHANGE BACK
+
+/**This class defines a part. */
 public abstract class Part {
     private int id;
     private String name;

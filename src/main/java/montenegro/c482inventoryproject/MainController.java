@@ -1,7 +1,6 @@
 package montenegro.c482inventoryproject;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -21,17 +20,18 @@ import java.util.ResourceBundle;
 import static montenegro.c482inventoryproject.Inventory.lookupPart;
 import static montenegro.c482inventoryproject.Inventory.lookupProduct;
 
+/**This class is the controller for the main view of the program.
+ * <br> <br>
+ * <b> FUTURE ENHANCEMENT</b> - my search methods are currently case-sensitive. A future enhancement would be to remove case sensitivity so that the user can find a part or product without worry about case sensitivity
+ */
 public class MainController implements Initializable {
-    //remember to add buttons also
 
-    //sample part data
     public TableView<Part> thePartTable;
     public TableColumn partIdCol;
     public TableColumn partNameCol;
     public TableColumn partStockCol;
     public TableColumn partPriceCol;
 
-    //public static ObservableList<Part> partList = FXCollections.observableArrayList();
     public TableView<Product> theProductTable;
     public TableColumn productIdCol;
     public TableColumn productNameCol;
@@ -47,10 +47,9 @@ public class MainController implements Initializable {
     public Button deleteProductButton;
     public Button exitButton;
 
+    /**This initialize method creates table views when entering the Add Product view. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("I am initialized");
-
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
@@ -66,11 +65,9 @@ public class MainController implements Initializable {
         theProductTable.setItems(Inventory.getAllProducts());
     }
 
-    public static void deleteSelection() {
-
-    }
-    //part search function
-    //could be improved with live update while I search
+    /**This method allows us to search the part table for a part.
+     * @param actionEvent Method is called when the user enters text into the search field and presses enter
+     */
     public void partSearchEventHandler(ActionEvent actionEvent) {
         String query = partTextField.getText();
 
@@ -98,6 +95,9 @@ public class MainController implements Initializable {
         thePartTable.setItems(parts);
     }
 
+    /**This method allows us to search the product table for a product.
+     * @param actionEvent Method is called when the user enters text into the search field and presses enter
+     */
     public void productSearchEventHandler(ActionEvent actionEvent) {
         String query = productTextField.getText();
 
@@ -125,7 +125,7 @@ public class MainController implements Initializable {
         theProductTable.setItems(products);
     }
 
-    //This function will be used to display an error messsage when a user enters a search term which does not find a match
+    /** This method displayed an error message when a match is not found. */
     public static void displayNoMatchError() {
         Alert errorMessage = new Alert(Alert.AlertType.ERROR);
         errorMessage.setTitle("Error");
@@ -133,6 +133,9 @@ public class MainController implements Initializable {
         errorMessage.showAndWait();
     }
 
+    /** This method displayed an error message when user does not select a Part or Product from a table.
+     * This error occurs when a user attempt to modify a Part or Product without selecting one first.
+     */
     public static void displayNoSelectionError() {
         Alert errorMessage = new Alert(Alert.AlertType.ERROR);
         errorMessage.setTitle("Error");
@@ -140,7 +143,9 @@ public class MainController implements Initializable {
         errorMessage.showAndWait();
     }
 
-    //this loads the add part view
+    /**This method sends the user to the Add Part view.
+     * @param actionEvent Method is called when the user clicks Add on the Part panel
+     */
     public void addPart(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("add-part-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -151,6 +156,10 @@ public class MainController implements Initializable {
     }
 
     //this loads the modify part view with the default in house option selected
+    /**This method sends the user to the Modify Part view.
+     * This method will also send the data of the selected part into the Modify Part view.
+     * @param actionEvent Method is called when the user selects a part and clicks the modify button on the Part panel
+     */
     public void modifyPart(ActionEvent actionEvent) throws IOException {
         FXMLLoader modifyPartLoader = new FXMLLoader();
         modifyPartLoader.setLocation(getClass().getResource("modify-part-view.fxml"));
@@ -168,7 +177,9 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    //This loads the view of the add product form
+    /**This method sends the user to the Add Part view.
+     * @param actionEvent Method is called when the user clicks Add on the Part panel
+     */
     public void addProduct(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("add-product-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -178,7 +189,10 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    //This loads the view of the modify product form
+    /**This method sends the user to the Modify Product view.
+     * This method will also send the data of the selected product into the Modify Product view.
+     * @param actionEvent Method is called when the user selects a product and clicks the modify button on the Product panel
+     */
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
         FXMLLoader modifyProductLoader = new FXMLLoader();
         modifyProductLoader.setLocation(getClass().getResource("modify-product-view.fxml"));
@@ -196,7 +210,9 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    //this closes out the program
+    /**This method closes the program.
+     * @param actionEvent Method is called when the user clicks the exit button.
+     */
     public void exitProgram(ActionEvent actionEvent) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
         Optional<ButtonType> result = confirm.showAndWait();
@@ -205,6 +221,9 @@ public class MainController implements Initializable {
         }
     }
 
+    /**This method deletes a selected Part from the Inventory.
+     * @param actionEvent Method is called when the user selects a part and clicks the delete button on the part panel
+     */
     public void onDeletePart(ActionEvent actionEvent) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
         Optional<ButtonType> result = confirm.showAndWait();
@@ -214,6 +233,9 @@ public class MainController implements Initializable {
         }
     }
 
+    /**This method deletes a selected Product from the Inventory.
+     * @param actionEvent Method is called when the user selects a product and clicks the delete button on the product panel
+     */
     public void onDeleteProduct(ActionEvent actionEvent) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this product?");
         Optional<ButtonType> result = confirm.showAndWait();

@@ -22,8 +22,8 @@ import static montenegro.c482inventoryproject.Inventory.lookupPart;
 import static montenegro.c482inventoryproject.Inventory.lookupProduct;
 import static montenegro.c482inventoryproject.MainController.displayNoMatchError;
 
+/** This class modifies an existing Product in the Inventory.*/
 public class modifyProductViewController implements Initializable {
-
     public TextField searchTextField;
     public TextField nameTextField;
     public TextField invTextField;
@@ -48,9 +48,11 @@ public class modifyProductViewController implements Initializable {
     double price;
     int max;
     int min;
-    Random randomId = new Random();
     boolean successfulModification = false;
 
+    /** This method collects a selected products data to send into the Modify Product view.
+     * @param product The selected product to be modified
+     */
     public void sendData(Product product) {
         idTextField.setText(String.valueOf(product.getId()));
         nameTextField.setText(product.getName());
@@ -63,9 +65,9 @@ public class modifyProductViewController implements Initializable {
             associatedParts.add(part);
         }
     }
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("I am initialized");
 
+    /**This initialize method creates table views when entering the Modify Product view. */
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         idCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         invCol.setCellValueFactory(new PropertyValueFactory<>("Stock"));
@@ -81,6 +83,7 @@ public class modifyProductViewController implements Initializable {
         associatedPartTable.setItems(associatedParts);
     }
 
+    /**This method modifies an existing products data. */
     public void modifyProduct() {
         //the id will remain the same
         id = Integer.parseInt(idTextField.getText());
@@ -151,6 +154,10 @@ public class modifyProductViewController implements Initializable {
             return;
         }
     }
+
+    /**This method will send the user back to the main screen view.
+     * @param actionEvent Method is called when the user clicks the cancel button
+     */
     public void toMainScreen(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("main-view.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -160,6 +167,9 @@ public class modifyProductViewController implements Initializable {
         stage.show();
     }
 
+    /**This method allows us to search the part table for a part.
+     * @param actionEvent Method is called when the user enters text into the search field and presses enter
+     */
     public void searchEventHandler(ActionEvent actionEvent) {
         String query = searchTextField.getText();
 
@@ -187,6 +197,9 @@ public class modifyProductViewController implements Initializable {
         partTable.setItems(parts);
     }
 
+    /**This method allows the user to remove an associated part from a product.
+     * @param actionEvent Method is called when the user clicks the Remove Associated Part button
+     */
     public void onRemoveAssociatedPart(ActionEvent actionEvent) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this associated part?");
         Optional<ButtonType> result = confirm.showAndWait();
@@ -197,6 +210,9 @@ public class modifyProductViewController implements Initializable {
         }
     }
 
+    /**This method saves the modified product
+     * @param actionEvent Method is called when the user clicks the save button
+     */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
         System.out.println("modifying product");
         //insert product into inventory
@@ -213,6 +229,9 @@ public class modifyProductViewController implements Initializable {
         stage.show();
     }
 
+    /**This method allows the user to add an associated part to a product.
+     * @param actionEvent Method is called when the user clicks the add button
+     */
     public void onAddAssociatedPart(ActionEvent actionEvent) {
         Part part = partTable.getSelectionModel().getSelectedItem();
         associatedParts.add(part);
