@@ -118,12 +118,18 @@ public class modifyPartViewController {
 
             //check to see if min & max values are valid
             if (min > inv) {
-                System.out.println("Min is higher than available stock!");
+                Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+                errorMessage.setTitle("Warning");
+                errorMessage.setContentText("Min is higher than available stock!");
+                errorMessage.showAndWait();
                 return;
             }
 
             if (inv > max) {
-                System.out.println("Stock must be less than or equal to max!");
+                Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+                errorMessage.setTitle("Warning");
+                errorMessage.setContentText("Stock must be less than or equal to max!");
+                errorMessage.showAndWait();
                 return;
             }
 
@@ -139,7 +145,10 @@ public class modifyPartViewController {
             System.out.println("modifying inhouse part");
         }
         catch (NumberFormatException e) {
-            System.out.println(error + " value must be a number!");
+            Alert errorMessage = new Alert(Alert.AlertType.WARNING);
+            errorMessage.setTitle("Warning");
+            errorMessage.setContentText(error + " value must be a number!");
+            errorMessage.showAndWait();
             return;
         }
     }
