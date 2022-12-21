@@ -90,7 +90,6 @@ public class addPartViewController {
             InHouse part = new InHouse(id,name,price,inv,min,max,machineId);
             Inventory.addPart(part);
             successfulAddition = true;
-            System.out.println("inserting inhouse part");
         }
         catch (NumberFormatException e) {
             Alert errorMessage = new Alert(Alert.AlertType.WARNING);
@@ -162,7 +161,6 @@ public class addPartViewController {
             Outsourced part = new Outsourced(id,name,price,inv,min,max,companyName);
             Inventory.addPart(part);
             successfulAddition = true;
-            System.out.println("inserting outsourced part");
         }
         catch (NumberFormatException e) {
             Alert errorMessage = new Alert(Alert.AlertType.WARNING);
@@ -204,10 +202,7 @@ public class addPartViewController {
      * @param actionEvent Method is called when the user clicks on the save button
      */
     public void savePart(ActionEvent actionEvent) throws IOException {
-        System.out.println("saving part");
-
         if (addInhouseRadioButton.isSelected()) {
-            System.out.println("lol this is inhouse");
             insertInHousePart();
             if (successfulAddition == false) {
                 return;
@@ -215,7 +210,6 @@ public class addPartViewController {
         }
 
         if (addOutsourcedRadioButton.isSelected()) {
-            System.out.println("hehe this is outsourced");
             insertOutsourcedPart();
             if (successfulAddition == false) {
                 return;

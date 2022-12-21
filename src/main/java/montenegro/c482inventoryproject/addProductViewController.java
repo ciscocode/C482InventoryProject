@@ -110,7 +110,6 @@ public class addProductViewController implements Initializable {
             //Then I can add the finished product to the inventory
             Inventory.addProduct(product);
             successfulAddition = true;
-            System.out.println("inserting product");
         }
         catch (NumberFormatException e) {
             Alert errorMessage = new Alert(Alert.AlertType.WARNING);
@@ -120,7 +119,6 @@ public class addProductViewController implements Initializable {
             return;
         }
     }
-    //could be improved with live update while I search
     /**This method allows us to search the product table for a product.
      * @param actionEvent Method is called when the user enters text into the search field and presses enter
      */
@@ -172,7 +170,6 @@ public class addProductViewController implements Initializable {
      * @param actionEvent Method is called when the user clicks the save button
      */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-        System.out.println("saving product");
         //insert product into inventory
         insertProduct();
         if (successfulAddition == false) {

@@ -155,7 +155,6 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    //this loads the modify part view with the default in house option selected
     /**This method sends the user to the Modify Part view.
      * This method will also send the data of the selected part into the Modify Part view.
      * @param actionEvent Method is called when the user selects a part and clicks the modify button on the Part panel

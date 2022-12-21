@@ -144,7 +144,6 @@ public class modifyProductViewController implements Initializable {
             }
 
             successfulModification = true;
-            System.out.println("inserting product");
         }
         catch (NumberFormatException e) {
             Alert errorMessage = new Alert(Alert.AlertType.WARNING);
@@ -214,7 +213,6 @@ public class modifyProductViewController implements Initializable {
      * @param actionEvent Method is called when the user clicks the save button
      */
     public void onSaveProduct(ActionEvent actionEvent) throws IOException {
-        System.out.println("modifying product");
         //insert product into inventory
         modifyProduct();
         if (successfulModification == false) {

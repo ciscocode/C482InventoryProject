@@ -86,7 +86,6 @@ public class modifyPartViewController {
 
         //then once you find the part you can use the setters to modify the part
         name = nameTextField.getText();
-        System.out.println(name);
         String priceString = priceTextField.getText();
         String invString = invTextField.getText();
         String minString = minTextField.getText();
@@ -154,7 +153,6 @@ public class modifyPartViewController {
             }
 
             successfulAddition = true;
-            System.out.println("modifying inhouse part");
         }
         catch (NumberFormatException e) {
             Alert errorMessage = new Alert(Alert.AlertType.WARNING);
@@ -169,7 +167,6 @@ public class modifyPartViewController {
      * @param actionEvent This method is called when the user clicks save
      */
     public void savePart(ActionEvent actionEvent) throws IOException {
-        System.out.println("modifying part");
         modifyPart();
         if (successfulAddition == false) {
             return;
