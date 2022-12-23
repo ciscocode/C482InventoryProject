@@ -118,7 +118,10 @@ public class Product {
      * @param part the part to add to our list
      */
     public void addAssociatedPart(Part part) {
-        associatedParts.add(part);
+
+                associatedParts.add(part);
+
+
     }
 
     /**This method deletes a selected associated part

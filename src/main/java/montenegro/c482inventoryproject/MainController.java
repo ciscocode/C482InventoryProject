@@ -201,7 +201,7 @@ public class MainController implements Initializable {
             displayNoSelectionError();
             return;
         }
-        modifyController.sendData(theProductTable.getSelectionModel().getSelectedItem());
+        modifyController.sendData(theProductTable.getSelectionModel().getSelectedIndex(), theProductTable.getSelectionModel().getSelectedItem());
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent scene = modifyProductLoader.getRoot();
         stage.setTitle("Modify Product");

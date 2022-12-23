@@ -49,11 +49,15 @@ public class modifyProductViewController implements Initializable {
     int max;
     int min;
     boolean successfulModification = false;
+    int index = 0;
+
 
     /** This method collects a selected products data to send into the Modify Product view.
      * @param product The selected product to be modified
      */
-    public void sendData(Product product) {
+    public void sendData(int productIndex, Product product) {
+        index = productIndex;
+
         idTextField.setText(String.valueOf(product.getId()));
         nameTextField.setText(product.getName());
         invTextField.setText(String.valueOf(product.getStock()));
@@ -88,9 +92,6 @@ public class modifyProductViewController implements Initializable {
         //the id will remain the same
         id = Integer.parseInt(idTextField.getText());
 
-        //find the product by searching through the inventory by id
-        Product product = lookupProduct(id);
-
         //turn all inputs into strings
         name = nameTextField.getText();
         String priceString = priceTextField.getText();
@@ -109,15 +110,14 @@ public class modifyProductViewController implements Initializable {
 
         String error = "";
         try {
-            product.setName(name);
             error = "Price";
-            product.setPrice(Double.parseDouble(priceString));
+            price = Double.parseDouble(priceString);
             error = "Stock";
-            product.setStock(Integer.parseInt(invString));
+            inv = Integer.parseInt(invString);
             error = "Min";
-            product.setMin(Integer.parseInt(minString));
+            min = Integer.parseInt(minString);
             error = "Max";
-            product.setMax(Integer.parseInt(maxString));
+            max = Integer.parseInt(maxString);
 
             //check to see if min & max values are valid
             if (min > inv) {
@@ -136,6 +136,9 @@ public class modifyProductViewController implements Initializable {
                 return;
             }
 
+            //once I gather my parameters I can create the product
+            Product product = new Product(id,name,price,inv,min,max);
+
             //then I must add any associated parts. I must loop because there may be multiple associated parts
             for (Part part: associatedParts) {
                 if (part != associatedParts) {
@@ -143,6 +146,8 @@ public class modifyProductViewController implements Initializable {
                 }
             }
 
+            //replace this product with the old product
+            Inventory.updatedProduct(index,product);
             successfulModification = true;
         }
         catch (NumberFormatException e) {
@@ -203,7 +208,14 @@ public class modifyProductViewController implements Initializable {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove this associated part?");
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            //the id will remain the same
+            id = Integer.parseInt(idTextField.getText());
+
+            //find the product by searching through the inventory by id
+            Product product = lookupProduct(id);
+
             Part part = associatedPartTable.getSelectionModel().getSelectedItem();
+            product.deleteAssociatedPart(part);
             associatedParts.remove(part);
             associatedPartTable.setItems(associatedParts);
         }
